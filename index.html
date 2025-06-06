@@ -1,62 +1,302 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sentinel Pulse | Cybersecurity AI Engine</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>AceIt - Monthly Task Tracker</title>
+
+<link rel="stylesheet" href="styles.css" />
+
+<style>
+  header h1 {
+    font-family: Verdana, Geneva, sans-serif;
+    font-size: 3.5em;
+    margin: 0;
+    color: #ff96ad;
+    letter-spacing: 1px;
+    text-shadow: 
+    1px 1px 0 #d66b7a,
+    2px 2px 0 #c55869,
+    3px 3px 0 #b14455,
+    4px 4px 5px rgba(177, 68, 85, 0.7);
+  }
+</style>
+
 </head>
 <body>
-    <header>
-        <div class="container">
-            <h1>Sentinel Pulse</h1>
-            <nav>
-                <a href="#features">Features</a>
-                <a href="#about">About</a>
-                <a href="#contact">Contact</a>
-            </nav>
-        </div>
-    </header>
 
-    <section class="hero">
-        <div class="container">
-            <h2>Real-Time Cybersecurity Intelligence Powered by AI</h2>
-            <p>Detect, analyze, and neutralize threats before they impact your infrastructure.</p>
-            <a href="#features" class="cta-button">Explore Features</a>
-        </div>
-    </section>
+<header>
+  <h1>AceIt</h1>
+  <p>Your Monthly Productivity Tracker</p>
+</header>
 
-    <section id="features" class="features">
-        <div class="container">
-            <h2>Core Capabilities</h2>
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <h3>Threat Detection</h3>
-                    <p>Identify vulnerabilities and attacks with advanced AI models trained on global threat data.</p>
-                </div>
-                <div class="feature-card">
-                    <h3>Real-Time Monitoring</h3>
-                    <p>24/7 network surveillance with instant anomaly alerts and mitigation recommendations.</p>
-                </div>
-                <div class="feature-card">
-                    <h3>AI Incident Response</h3>
-                    <p>Autonomously respond to threats and minimize downtime using pre-trained neural defense systems.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+<section id="planner">
+  <label for="monthSelect">Select Month:</label>
+  <select id="monthSelect">
+    <option value="2025-01">January</option>
+    <option value="2025-02">February</option>
+    <option value="2025-03">March</option>
+    <option value="2025-04">April</option>
+    <option value="2025-05">May</option>
+    <option value="2025-06">June</option>
+    <option value="2025-07">July</option>
+    <option value="2025-08">August</option>
+    <option value="2025-09">September</option>
+    <option value="2025-10">October</option>
+    <option value="2025-11">November</option>
+    <option value="2025-12">December</option>
+  </select>
 
-    <section id="about" class="about">
-        <div class="container">
-            <h2>About Sentinel Pulse</h2>
-            <p>Sentinel Pulse is built by cybersecurity experts and AI researchers to give you peace of mind in a digitally volatile world. Designed to scale from startups to enterprises.</p>
-        </div>
-    </section>
+  <h2>Tasks by Category</h2>
 
-    <footer>
-        <div class="container">
-            <p>&copy; 2025 Sentinel Pulse. All rights reserved.</p>
-        </div>
-    </footer>
+  <div id="input-area">
+    <input type="text" id="taskInput" placeholder="Add a new task..." />
+    <select id="categorySelect">
+      <option value="professional">Professional</option>
+      <option value="health">Health</option>
+      <option value="lifegoals">Life Goals</option>
+      <option value="finance">Finance</option>
+      <option value="selfcare">Self-care</option>
+      <option value="entertainment">Entertainment</option>
+    </select>
+    <button onclick="addTask()">Add Task</button>
+  </div>
+
+  <div id="categories">
+    <div class="category" id="professional">
+      <h3>Professional</h3>
+      <ul></ul>
+    </div>
+    <div class="category" id="health">
+      <h3>Health</h3>
+      <ul></ul>
+    </div>
+    <div class="category" id="lifegoals">
+      <h3>Life Goals</h3>
+      <ul></ul>
+    </div>
+    <div class="category" id="finance">
+      <h3>Finance</h3>
+      <ul></ul>
+    </div>
+    <div class="category" id="selfcare">
+      <h3>Self-care</h3>
+      <ul></ul>
+    </div>
+    <div class="category" id="entertainment">
+      <h3>Entertainment</h3>
+      <ul></ul>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>&copy; 2025 AceIt &nbsp;|&nbsp; Stay productive!</p>
+</footer>
+
+<script>
+  const defaultTasks = {
+    professional: [
+      "Finish project report",
+      "Attend team meeting",
+      "Send client follow-up email",
+      "Review quarterly goals"
+    ],
+    health: [
+      "Go for a 30-minute run",
+      "Drink 8 glasses of water",
+      "Stretch for 10 minutes",
+      "Book dentist appointment",
+      "Prepare healthy meals for the week"
+    ],
+    lifegoals: [
+      "Plan next week’s schedule",
+      "Read a chapter of a personal development book",
+      "Meditate for 15 minutes",
+      "Practice a new skill or hobby",
+      "Set monthly savings goal"
+    ],
+    finance: [
+      "Review monthly budget",
+      "Pay credit card bill",
+      "Track daily expenses",
+      "Research investment options",
+      "Organize tax documents"
+    ],
+    selfcare: [
+      "Meditate for 10 minutes",
+      "Take a relaxing bath",
+      "Read a favorite book",
+      "Journal thoughts and feelings",
+      "Listen to calming music"
+    ],
+    entertainment: [
+      "Watch a movie",
+      "Call a friend for a chat",
+      "Play a board game",
+      "Listen to a podcast",
+      "Try a new recipe"
+    ]
+  };
+
+  const STORAGE_KEY_BASE = 'AceItMonthlyTasks_';
+  let currentMonth = document.getElementById('monthSelect').value;
+  let tasks = {};
+  let daysInMonth = getDaysInMonth(currentMonth);
+
+  function getDaysInMonth(monthStr) {
+    const [year, month] = monthStr.split('-').map(Number);
+    return new Date(year, month, 0).getDate();
+  }
+
+  function getStorageKey(month) {
+    return STORAGE_KEY_BASE + month;
+  }
+
+  function initializeMonthlyTasks(tasksByCategory) {
+    let result = {};
+    for (const category in tasksByCategory) {
+      result[category] = {};
+      tasksByCategory[category].forEach(task => {
+        result[category][task] = new Array(daysInMonth).fill(false);
+      });
+    }
+    return result;
+  }
+
+  function loadTasks(month) {
+    daysInMonth = getDaysInMonth(month);
+    const saved = localStorage.getItem(getStorageKey(month));
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        for (const cat in parsed) {
+          for (const task in parsed[cat]) {
+            if (parsed[cat][task].length !== daysInMonth) {
+              parsed[cat][task] = new Array(daysInMonth).fill(false);
+            }
+          }
+        }
+        return parsed;
+      } catch {
+        return initializeMonthlyTasks(defaultTasks);
+      }
+    }
+    return initializeMonthlyTasks(defaultTasks);
+  }
+
+  function saveTasks() {
+    localStorage.setItem(getStorageKey(currentMonth), JSON.stringify(tasks));
+  }
+
+  function renderDayNumbers(container) {
+    container.innerHTML = '';
+    for (let day = 1; day <= daysInMonth; day++) {
+      const span = document.createElement('span');
+      span.textContent = day;
+      container.appendChild(span);
+    }
+  }
+
+function renderTasks(tasksToRender) {
+  Object.keys(tasksToRender).forEach(category => {
+    const ul = document.querySelector(`#${category} ul`);
+    ul.innerHTML = '';
+
+    for (const taskText in tasksToRender[category]) {
+      const li = document.createElement('li');
+
+      const row = document.createElement('div');
+      row.classList.add('task-row');
+
+      
+      const deleteBtn = document.createElement('button');
+      deleteBtn.textContent = '✖';
+      deleteBtn.title = `Delete task "${taskText}"`;
+      deleteBtn.classList.add('delete-task-btn');
+      deleteBtn.addEventListener('click', () => {
+        if (confirm(`Delete task "${taskText}"?`)) {
+          delete tasksToRender[category][taskText];
+          saveTasks();
+          renderTasks(tasksToRender);
+        }
+      });
+      row.appendChild(deleteBtn);
+
+    
+      const label = document.createElement('div');
+      label.classList.add('task-label');
+      label.textContent = taskText;
+      row.appendChild(label);
+
+      
+      const dayGrid = document.createElement('div');
+      dayGrid.classList.add('day-grid');
+
+      const completionArray = tasksToRender[category][taskText];
+      for (let i = 0; i < daysInMonth; i++) {
+        
+        const dayNum = document.createElement('span');
+        dayNum.textContent = i + 1;
+        dayNum.title = `Day ${i + 1}`;
+        dayGrid.appendChild(dayNum);
+
+        
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.checked = completionArray[i];
+        checkbox.title = `Mark task "${taskText}" completed on day ${i + 1}`;
+        checkbox.addEventListener('change', () => {
+          tasksToRender[category][taskText][i] = checkbox.checked;
+          saveTasks();
+        });
+        dayGrid.appendChild(checkbox);
+      }
+
+      row.appendChild(dayGrid);
+      li.appendChild(row);
+      ul.appendChild(li);
+    }
+  });
+}
+
+
+  function addTask() {
+    const input = document.getElementById('taskInput');
+    const categorySelect = document.getElementById('categorySelect');
+    const taskText = input.value.trim();
+
+    if (taskText === '') {
+      alert('Please enter a task.');
+      return;
+    }
+
+    const category = categorySelect.value;
+
+    if (!tasks[category]) tasks[category] = {};
+    if (tasks[category][taskText]) {
+      alert('Task already exists in this category.');
+      return;
+    }
+
+    tasks[category][taskText] = new Array(daysInMonth).fill(false);
+
+    input.value = '';
+    saveTasks();
+    renderTasks(tasks);
+  }
+
+  document.getElementById('monthSelect').addEventListener('change', (e) => {
+    currentMonth = e.target.value;
+    tasks = loadTasks(currentMonth);
+    renderTasks(tasks);
+  });
+
+  window.onload = () => {
+    tasks = loadTasks(currentMonth);
+    renderTasks(tasks);
+  };
+</script>
+
 </body>
 </html>
